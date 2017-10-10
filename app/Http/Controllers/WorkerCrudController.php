@@ -47,7 +47,7 @@ class WorkerCrudController extends Controller
     public function store(Request $request)
     {
         $this->simpleValidator($request);
-       //save to DB
+        // save to DB
         $worker = new Worker();
         foreach (ParserXlsToDbController::$current_table as $key => $value) {
             $attribute = $value['db_value'];

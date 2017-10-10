@@ -9,8 +9,6 @@
     <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
 </head>
 <body>
-
-
 <!-- navBar -->
 <nav class="navbar navbar-default">
     <div class="container-fluid">
@@ -22,10 +20,9 @@
     </div>
 </nav>
 
-
 <!-- content -->
 <div class="container">
-        @yield('content')
+    @yield('content')
 </div>
 
 <!-- JQuery -->

@@ -4,15 +4,14 @@ namespace App\Http\Controllers;
 
 use App\Worker;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Input;
+use Illuminate\Support\Facades\{DB, Input};
 use File;
 use Maatwebsite\Excel\Facades\Excel;
 
 class ParserXlsToDbController extends Controller
 {
     /*
-     * for change data table in future
+     * For change data table in future
      */
     public static $current_table = array(
         'familiya' => array('ru' => 'Фамилия', 'db_value' => 'last_name'),
@@ -23,6 +22,9 @@ class ParserXlsToDbController extends Controller
         'zp_v_god.' => array('ru' => 'Зп в год.', 'db_value' => 'salary_for_year'),
     );
 
+    /*
+     * Show workers or upload form
+     */
     public function index()
     {
         if (Worker::find(1)) {
@@ -31,12 +33,13 @@ class ParserXlsToDbController extends Controller
             return view('ParserXlsToDb.getUploadForm');
         }
     }
+
     /*
-     * upload Excel file and parse to db
+     * Upload Excel file and parse to db
      */
-    public function import(Request $request)
+    public function importExcel(Request $request)
     {
-        //Validation file type
+        // validation file type
         if ($request->hasFile('document')) {
             $extension = File::extension($request->document->getClientOriginalName());
             if ($extension == "xlsx" || $extension == "xls" || $extension == "csv") {
@@ -48,12 +51,11 @@ class ParserXlsToDbController extends Controller
             $request->session()->flash('errorUpload', 'Выберите файл Ексель!');
             return back();
         }
-
-        //Read file, prepare end write to db
+        // read file, prepare end write to db
         $path = Input::file('document')->getRealPath();
         $data = Excel::load($path)->get()->toArray();
         if (!empty($data)) {
-            //Prepare import data (change name for db_name)
+            // Prepare import data (change name for db_name)
             $new_data = [];
             for ($i=0; $i<count($data); $i++) {
                 $arr_item = [];
@@ -65,12 +67,10 @@ class ParserXlsToDbController extends Controller
                 }
                 $new_data[$i] = $arr_item;
             }
-
-            //clear table and Insert data to db
+            // clear table and Insert data to db
             DB::table('workers')->truncate();
             DB::table('workers')->insert($new_data);
-
-            //return table for front with crud
+            // return table for front with crud
             $workers = Worker::all();
 
             return view('ParserXlsToDb.workers')->with('workers', $workers)->with('current_table', ParserXlsToDbController::$current_table);
@@ -80,11 +80,11 @@ class ParserXlsToDbController extends Controller
     /*
      * generate and download Excel file from db table
      */
-    public function export($type, $deleteTable=null)
+    public function exportExcel($type, $deleteTable=null)
     {
         $data = Worker::get()->toArray();
         if (!empty($data)) {
-            //Prepare import data (change db_name for export ru_name)
+            // Prepare import data (change db_name for export ru_name)
             $new_data = [];
             for ($i = 0; $i < count($data); $i++) {
                 $arr_item = [];
@@ -102,7 +102,7 @@ class ParserXlsToDbController extends Controller
                 $new_data[$i] = $arr_item;
             }
         }
-        //clear db
+        // clear db
         if ($deleteTable) {
             DB::table('workers')->truncate();
         }
@@ -114,4 +114,3 @@ class ParserXlsToDbController extends Controller
         })->download($type);
     }
 }
-

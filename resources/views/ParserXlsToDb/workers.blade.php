@@ -42,8 +42,4 @@
                 <button type="button" onclick="location.href = '/export/xlsx/1';" class="btn btn-danger">Експорт в Ексель и очистить БД</button>
         </div>
     </div>
-
-
-
-
 @endsection

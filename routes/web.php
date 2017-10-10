@@ -1,21 +1,9 @@
 <?php
 
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| contains the "web" middleware group. Now create something great!
-|
-*/
-
+// import / export excel to db('workers')
 Route::get('/', 'ParserXlsToDbController@index');
-Route::post('import', 'ParserXlsToDbController@import');
-Route::get('export/{type}', 'ParserXlsToDbController@export');
-Route::get('export/{type}/{deleteTable}', 'ParserXlsToDbController@export');
-
-
-
+Route::post('import', 'ParserXlsToDbController@importExcel');
+Route::get('export/{type}', 'ParserXlsToDbController@exportExcel');
+Route::get('export/{type}/{deleteTable}', 'ParserXlsToDbController@exportExcel');
+// CRUD workers
 Route::resource('workers', 'WorkerCrudController');
