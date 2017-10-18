@@ -168,8 +168,6 @@ return [
          * Package Service Providers...
          */
 
-
-
         /*
          * Application Service Providers...
          */
@@ -182,6 +180,7 @@ return [
         Collective\Html\HtmlServiceProvider::class,
        //For Excel
         Maatwebsite\Excel\ExcelServiceProvider::class,
+        App\Providers\ExcelToDbServiceProvider::class
     ],
 
     /*

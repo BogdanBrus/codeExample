@@ -1,37 +1,41 @@
 @extends('ParserXlsToDb.index')
 @section('tittle','Upload File')
 @section('content')
-    <div class="row" style="padding-top: 10%">
+    <div class="row">
         <div class="col-md-4 col-md-offset-4">
-            <h2>Загрузите Excel в БД:</h2>
-        </div>
-    </div>
-    <div class="row" style="padding-top: 30px">
-        <div class="col-md-4 col-md-offset-4">
-            <form action="{{ URL::to('import') }}" class="form-horizontal" method="post" enctype="multipart/form-data">
-                {!! csrf_field() !!}
-                <label class="btn btn-default" for="my-file-selector">
-                    <input id="my-file-selector" type="file" name="document" style="display:none"
-                           onchange="$('#upload-file-info').html(this.files[0].name)">
-                    Выбрать файл...
-                </label>
-                <span class='label label-info' id="upload-file-info"></span>
-                <button type="submit" class="btn btn-primary">Импортировать в БД</button>
-            </form>
-            @if(isset($file_err))
-                <span class="label label-danger">
-                 <strong>{{ $file_err }}</strong>
-            </span>
-            @endif
+            <h3>Загрузка табл. "Работники" (excel) в БД:</h3>
         </div>
     </div>
     <div class="row">
         <div class="col-md-4 col-md-offset-4">
-            @if(!empty(Session::get('errorUpload')))
-                <div class="alert alert-warning">
-                    <strong>Warning!</strong> {{Session::get('errorUpload')}}
+            <div class="row">
+                <div class="col-md-10 col-md-offset-1">
+                    <div class="info"></div>
+                    <div class="error">
+                        @if ($errors->any())
+                            <div class="alert alert-danger">
+                                @foreach ($errors->all() as $error)
+                                    {{ $error }}
+                                @endforeach
+                            </div>
+                        @endif
+                    </div>
                 </div>
-            @endif
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="btn-group buttonUpload">
+                        <button type="button" id="chooseUploadExcel" class="btn btn-default">Выбрать файл...</button>
+                        <button type="button" id="importExcelBtn" class="btn btn-primary">Импорт</button>
+                    </div>
+
+                    {{ Form::open(array('url' => 'import', 'files'=>'true', 'id' => 'formExcelUpload', 'class' => 'hidden', 'method' => 'post')) }}
+                    {{ Form::file('document') }}
+                    {{ Form::submit('') }}
+                    {{ Form::close() }}
+                </div>
+            </div>
         </div>
     </div>
+
 @endsection

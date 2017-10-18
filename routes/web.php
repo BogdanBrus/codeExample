@@ -1,9 +1,12 @@
 <?php
 
+/*
+ * Excel Workers table
+ */
 // import / export excel to db('workers')
-Route::get('/', 'ParserXlsToDbController@index');
-Route::post('import', 'ParserXlsToDbController@importExcel');
-Route::get('export/{type}', 'ParserXlsToDbController@exportExcel');
-Route::get('export/{type}/{deleteTable}', 'ParserXlsToDbController@exportExcel');
+Route::get('/', 'ParserExcelDb\ParserExcelDbController@index');
+Route::post('import', 'ParserExcelDb\ParserExcelDbController@importExcel');
+Route::get('export/{deleteTable?}', 'ParserExcelDb\ParserExcelDbController@exportExcel');
 // CRUD workers
-Route::resource('workers', 'WorkerCrudController');
+Route::resource('workers', 'ParserExcelDb\WorkerCrudController');
+

@@ -6,28 +6,31 @@
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>@yield('tittle')</title>
+    <link rel="stylesheet" href="{{ asset('/css/workers.css') }}">
     <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+    <!-- JQuery -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <!-- Bootstrap JavaScript -->
+    <script src="//netdna.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
 </head>
 <body>
 <!-- navBar -->
-<nav class="navbar navbar-default">
-    <div class="container-fluid">
-        <div class="navbar-header">
-            <a class="navbar-brand" href="/">
-                <img alt="Home" src="...">
-            </a>
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-1 navHome">
+                <a href="/">HOME</a>
         </div>
     </div>
-</nav>
+</div>
 
 <!-- content -->
-<div class="container">
+<div class="container-fluid">
     @yield('content')
 </div>
 
-<!-- JQuery -->
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-<!-- Bootstrap JavaScript -->
-<script src="//netdna.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+
+<!--workersJs-->
+<script type="text/javascript" src="{{ URL::asset('js/workers.js') }}"></script>
 </body>
 </html>
