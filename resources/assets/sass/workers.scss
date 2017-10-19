@@ -1,0 +1,71 @@
+/*
+* style for workers Excel <-> DB
+*/
+@import url('https://fonts.googleapis.com/css?family=Open+Sans+Condensed:300|Rubik');
+@mixin font_tittle {
+  font-family: 'Open Sans Condensed', sans-serif;
+  text-align: center;
+  font-size: 1.5em;
+
+}
+@mixin font_text {
+  font-family: 'Rubik', sans-serif;
+  text-align: center;
+  font-size: 1em;
+}
+
+$nav_color: #fff2c5;
+$nav_color_hover: #fcc5d6;
+$link_color: #65afe2;
+
+h1, h2, h3, h4, h5, h6 {
+  @include font_tittle;
+}
+body {
+  @include font_text;
+}
+
+div .navHome {
+  padding-left:50%;
+
+  a {
+    color: $link_color;
+    background-color: $nav_color;
+
+    &:hover {
+      color: $link_color;
+      background-color: $nav_color_hover;
+    }
+  }
+}
+
+h3 {
+  @include font_tittle;
+  padding-top: 50%;
+}
+
+div .info, .error, #workersTable {
+  @include font_text;
+}
+
+.buttonUpload {
+  padding-left:6%;
+}
+
+.createWorkerBtn {
+  float: left;
+  margin-top: 25px;
+  margin-left: 17%;
+}
+
+.controlPanelExcel {
+  float: right;
+  padding-top: 25px;
+  padding-right: 34%;
+}
+
+li {
+  list-style:none;
+  padding:0;
+  margin:0;
+}
